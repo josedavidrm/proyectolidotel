@@ -75,3 +75,28 @@ begin
                 break;
             end;
         end; 
+
+         if (entrada = '') or (not es_valido) then
+        begin
+            writeln('Error: ingrese solo letras y no deje el campo vacio.');
+            es_valido := false;
+        end;
+    until es_valido;
+
+    leer_texto := entrada;
+end;
+
+function leer_email(mensaje: string): string;
+var
+    entrada: string;
+begin
+    write(mensaje);
+    readln(entrada);
+    leer_email := entrada; 
+end;
+
+function leer_telefono(mensaje: string): string;
+var
+    entrada: string;
+    es_valido: boolean;
+    i: integer; 
