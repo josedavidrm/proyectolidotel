@@ -100,3 +100,54 @@ var
     entrada: string;
     es_valido: boolean;
     i: integer; 
+
+    begin
+    repeat
+        write(mensaje);
+        readln(entrada);
+        es_valido := true;
+
+        for i := 1 to length(entrada) do
+        begin
+            if not (entrada[i] in ['0'..'9']) then
+            begin
+                es_valido := false;
+                break;
+            end;
+        end;
+
+        if (entrada = '') or (not es_valido) then
+        begin
+            writeln('Error: ingrese solo numeros y no deje el campo vacio.');
+            es_valido := false;
+        end;
+    until es_valido;
+
+    leer_telefono := entrada;
+end;
+
+// --- Crear Archivos ---
+procedure crear_archivos;
+begin
+    assign(archivo_individual, 'clientes_individual.dat');
+    if not fileexists('clientes_individual.dat') then
+        rewrite(archivo_individual)
+    else
+        reset(archivo_individual);
+    close(archivo_individual);
+
+    assign(archivo_acompanado, 'clientes_acompanados.dat');
+    if not fileexists('clientes_acompanados.dat') then
+        rewrite(archivo_acompanado)
+    else
+        reset(archivo_acompanado);
+    close(archivo_acompanado);
+
+    assign(archivo_grupo, 'clientes_grupos.dat');
+    if not fileexists('clientes_grupos.dat') then
+        rewrite(archivo_grupo)
+    else
+        reset(archivo_grupo);
+    close(archivo_grupo);
+end;
+ 
