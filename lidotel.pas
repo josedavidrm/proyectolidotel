@@ -151,3 +151,53 @@ begin
     close(archivo_grupo);
 end;
  
+ 
+// --- Cliente ya registrado ---
+function cliente_ya_registrado(cedula: string; var archivo: archivo_clientes): boolean;
+var
+    cliente: tcliente;
+begin
+    reset(archivo); // Asegurarse de abrir correctamente el archivo
+    cliente_ya_registrado := false;
+
+    while not eof(archivo) do
+    begin
+        read(archivo, cliente);
+        if cliente.cedula = cedula then
+        begin
+            cliente_ya_registrado := true;
+            break;
+        end;
+    end;
+
+    close(archivo); // Cerrar después de finalizar
+end;
+
+
+// --- Registrar Cliente Individual ---
+procedure registrar_cliente_individual;
+var
+    precio_por_noche: real;
+    tipo_habitacion: integer;
+begin
+ 
+ assign(archivo_individual, 'clientes_individual.dat');
+    if not fileexists('clientes_individual.dat') then
+        rewrite(archivo_individual)
+    else
+        reset(archivo_individual);
+        
+    writeln('Ingrese los datos del cliente individual:');
+    cliente.nombre := leer_texto('Nombre: ');
+    cliente.apellido := leer_texto('Apellido: ');
+    cliente.cedula := leer_telefono('Cedula: ');
+    cliente.email := leer_email('Email: ');
+    cliente.telefono := leer_telefono('Telefono: ');
+    cliente.dias_estadia := leer_numero('Dias de estadia: ', 1, 365);
+
+    writeln('Seleccione el tipo de habitacion:');
+    writeln('1. FAMILY ROOM - $200 por noche');
+    writeln('2. SENCILLA - $60 por noche');
+    writeln('3. DOBLE - $120 por noche');
+    writeln('4. SUITE - $300 por noche');
+    tipo_habitacion := leer_numero('Opcion: ', 1, 4); 
