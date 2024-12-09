@@ -44,3 +44,34 @@ function leer_numero(mensaje: string; min, max: integer): integer;
 var
     entrada: string;
     numero, codigo_error: integer; 
+
+    begin
+    repeat
+        write(mensaje);
+        readln(entrada);
+        val(entrada, numero, codigo_error);
+        if (codigo_error <> 0) or (numero < min) or (numero > max) then
+            writeln('Error: ingrese un numero valido entre ', min, ' y ', max, '.');
+    until (codigo_error = 0) and (numero >= min) and (numero <= max);
+    leer_numero := numero;
+end;
+
+function leer_texto(mensaje: string): string;
+var
+    entrada: string;
+    es_valido: boolean;
+    i: integer;
+begin
+    repeat
+        write(mensaje);
+        readln(entrada);
+        es_valido := true;
+
+        for i := 1 to length(entrada) do
+        begin
+            if not (entrada[i] in ['a'..'z', 'A'..'Z', ' ']) then
+            begin
+                es_valido := false;
+                break;
+            end;
+        end; 
