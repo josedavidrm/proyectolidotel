@@ -201,3 +201,43 @@ begin
     writeln('3. DOBLE - $120 por noche');
     writeln('4. SUITE - $300 por noche');
     tipo_habitacion := leer_numero('Opcion: ', 1, 4); 
+
+     case tipo_habitacion of
+        1: begin
+            cliente.habitacion := 'FAMILY ROOM';
+            precio_por_noche := 200;
+        end;
+        2: begin
+            cliente.habitacion := 'SENCILLA';
+            precio_por_noche := 60;
+        end;
+        3: begin
+            cliente.habitacion := 'DOBLE';
+            precio_por_noche := 120;
+        end;
+        4: begin
+            cliente.habitacion := 'SUITE';
+            precio_por_noche := 300;
+        end;
+    end;
+
+    cliente.costo_total := cliente.dias_estadia * precio_por_noche;
+
+   procedure mostrar_reservacion(cliente: tcliente; precio_por_noche: real);
+begin
+    writeln('--- Resumen de la Reservación ---');
+    writeln('Nombre: ', cliente.nombre, ' ', cliente.apellido);
+    writeln('Cédula: ', cliente.cedula);
+    writeln('Email: ', cliente.email);
+    writeln('Teléfono: ', cliente.telefono);
+    writeln('Días de estadía: ', cliente.dias_estadia);
+    writeln('Habitación: ', cliente.habitacion);
+    writeln('Costo por noche: $', precio_por_noche:0:2);
+    writeln('Costo total: $', cliente.costo_total:0:2);
+end;
+   
+    if cliente_ya_registrado(cliente.cedula, archivo_individual) then
+    begin
+        writeln('No se puede registrar el cliente porque ya está registrado.');
+        exit;
+    end; 
